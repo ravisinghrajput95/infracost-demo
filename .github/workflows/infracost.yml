@@ -1,0 +1,40 @@
+name: FinOps Cost Check
+
+on:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  infracost:
+    name: Infracost Analysis
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Checkout repo
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # 2. Setup Terraform (optional but good practice)
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      # 3. Setup Infracost
+      - name: Setup Infracost
+        uses: infracost/actions/setup@v2
+
+      # 4. Run Infracost breakdown (baseline)
+      - name: Generate baseline
+        run: infracost breakdown --path . --format json --out-file infracost-base.json
+
+      # 5. Run Infracost diff
+      - name: Generate diff
+        run: infracost diff --path . --format json --out-file infracost-diff.json
+
+      # 6. Comment on PR (🔥 WOW)
+      - name: Post Infracost comment
+        run: |
+          infracost comment github \
+            --path infracost-diff.json \
+            --repo ${{ github.repository }} \
+            --github-token ${{ secrets.GITHUB_TOKEN }} \
+            --pull-request ${{ github.event.pull_request.number }}
