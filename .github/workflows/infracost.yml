@@ -16,11 +16,13 @@ jobs:
 
       # 2. Setup Terraform (optional but good practice)
       - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v3
+        uses: hashicorp/setup-terraform@v4
 
       # 3. Setup Infracost
       - name: Setup Infracost
-        uses: infracost/actions/setup@v2
+        uses: infracost/actions/setup@v3
+        with:
+          api-key: ${{ secrets.INFRACOST_API_KEY }}
 
       # 4. Run Infracost breakdown (baseline)
       - name: Generate baseline
