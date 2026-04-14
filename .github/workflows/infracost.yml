@@ -33,7 +33,7 @@ jobs:
 
       # 5. Run Infracost diff
       - name: Generate diff
-        run: infracost diff --path . --compare-to infracost-base.json`
+        run: infracost diff --path . --compare-to infracost-base.json
 
       # 6. Comment on PR
       - name: Post Infracost comment
