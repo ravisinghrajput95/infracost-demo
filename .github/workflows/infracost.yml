@@ -38,8 +38,9 @@ jobs:
       # 6. Comment on PR
       - name: Post Infracost comment
         run: |
-          infracost comment github \
-            --path infracost-base.json \
-            --repo ${{ github.repository }} \
-            --github-token ${{ secrets.GITHUB_TOKEN }} \
-            --pull-request ${{ github.event.pull_request.number }}
+         infracost comment github \
+           --path infracost-base.json \
+           --repo "${{ github.repository }}" \
+           --commit "${{ github.sha }}" \
+           --behavior hide-and-new \
+           --github-token "${{ secrets.GITHUB_TOKEN }}"
