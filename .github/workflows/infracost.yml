@@ -1,6 +1,9 @@
 name: FinOps Cost Check
 
 on:
+  push:
+    branches:
+      - main
   pull_request:
     branches: [ main ]
 
@@ -30,7 +33,7 @@ jobs:
 
       # 5. Run Infracost diff
       - name: Generate diff
-        run: infracost diff --path . --compare-to infracost-base.json --format json --out-file infracost-diff.json
+        run: infracost diff --path . --compare-to infracost-base.json
 
       # 6. Comment on PR
       - name: Post Infracost comment
