@@ -33,13 +33,13 @@ jobs:
 
       # 5. Run Infracost diff
       - name: Generate diff
-        run: infracost diff --path . --compare-to infracost-base.json
+        run: infracost diff --path . --compare-to infracost-base.json`
 
       # 6. Comment on PR
       - name: Post Infracost comment
         run: |
           infracost comment github \
-            --path infracost-diff.json \
+            --path infracost-base.json \
             --repo ${{ github.repository }} \
             --github-token ${{ secrets.GITHUB_TOKEN }} \
             --pull-request ${{ github.event.pull_request.number }}
