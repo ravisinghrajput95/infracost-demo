@@ -18,15 +18,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Checkout repo
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # 2. Setup Terraform (optional but good practice)
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v4
 
-      # 3. Setup Infracost
       - name: Setup Infracost
         uses: infracost/actions/setup@v3
         with:
